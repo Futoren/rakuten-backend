@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'chat',
     'ingredient',
     'recipe',
+    'user_info',
 ]
 
 MIDDLEWARE = [
