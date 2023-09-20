@@ -1,4 +1,3 @@
-from api.v1.ingredients.serializers import IngredientSerializer
 from rest_framework import serializers
 from recipe.models import Recipe, RecipeIngredient
 
