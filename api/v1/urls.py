@@ -10,16 +10,13 @@ from .recipe.views import RecipeViewSet
 from .recipe.views import RecipeIngredientViewSet
 from .user_info.views import UserInfoViewSet
 from .users.views import ManageUserView, UserViewSet
-from .recipe.views import RecipeIngredientsViewSet
-from .user_info.views import UserInfoViewSet
-from .users.views import ManageUserView, UserViewSet
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet, basename="User")
 router.register('chat', ChatViewSet, basename="Chat")
 router.register('ingredient', IngredientViewSet, basename="Ingredient")
 router.register('recipe', RecipeViewSet, basename="Recipe")
-router.register('recipeIngredients', RecipeI
+router.register('recipeIngredients', RecipeIngredientViewSet, basename="RecipeIngredient")
 router.register('menu_suggestion', MenuSuggestionViewSet,basename="MenuSuggestion")
 router.register('menu', MenuViewSet, basename="Menu")
 router.register('user_info', UserInfoViewSet, basename="UserInfo")
