@@ -6,7 +6,7 @@ from user_info.models import UserInfo
 from .serializers import UserInfoSerializer
 
 
-class RecipeViewSet(viewsets.ModelViewSet):
+class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
     permission_classes = (IsAuthenticated,)
