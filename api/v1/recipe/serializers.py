@@ -1,4 +1,4 @@
-from incredients.serializers import IngredientSerializer
+from api.v1.ingredients.serializers import IngredientSerializer
 from rest_framework import serializers
 
 from recipe.models import Recipe, RecipeIngredient
@@ -13,7 +13,6 @@ class RecipeIngredientSerializer(serializers.ModelSerializer):
 
 
 class RecipeSerializer(serializers.ModelSerializer):
-    ingredients_grams = RecipeIngredientSerializer(many=True, read_only=True)
 
     class Meta:
         model = Recipe
