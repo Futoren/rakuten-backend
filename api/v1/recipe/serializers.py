@@ -1,4 +1,4 @@
-from incredient.serializers import IngredientSerializer
+from incredients.serializers import IngredientSerializer
 from rest_framework import serializers
 
 from recipe.models import Recipe, RecipeIngredient
