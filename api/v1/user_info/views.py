@@ -9,4 +9,3 @@ from .serializers import UserInfoSerializer
 class UserInfoViewSet(viewsets.ModelViewSet):
     queryset = UserInfo.objects.all()
     serializer_class = UserInfoSerializer
-    permission_classes = (IsAuthenticated,)
