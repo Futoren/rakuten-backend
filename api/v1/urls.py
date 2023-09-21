@@ -5,7 +5,7 @@ from rest_framework import routers
 from .chat.views import ChatViewSet
 from .ingredients.views import IngredientViewSet
 from .menu.views import MenuViewSet
-from .menu_suggestion.views import MenuSuggestionViewSet
+from .menu_suggestion.views import MenuSuggestionViewSet, get_ingredient
 from .recipe.views import RecipeViewSet
 from .recipe.views import RecipeIngredientViewSet
 from .user_info.views import UserInfoViewSet
@@ -23,6 +23,7 @@ router.register('user_info', UserInfoViewSet, basename="UserInfo")
 
 urlpatterns = [
     path('myself/', ManageUserView.as_view(), name='myself'),
+    path('get_ingredient/<int:menu_suggestion_id>/', get_ingredient, name='get_ingredient_ids'),
     # ユーザ名とパスワードをPOSTするとトークンを返す。
     path('', include(router.urls)),
 ]
