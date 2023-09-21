@@ -7,3 +7,6 @@ class Ingredient(models.Model):
     expiration_date = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     trivia_url = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.name
