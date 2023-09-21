@@ -1,9 +1,13 @@
+import json
 from datetime import timedelta
 
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 
 from ingredient.models import Ingredient
+from menu.models import Menu
 from menu_suggestion.models import MenuSuggestion
 
 from .serializers import MenuSuggestionSerializer
@@ -52,3 +56,22 @@ def get_ingredient(request, menu_suggestion_id):
         return JsonResponse({'ingredients': ingredient_list})
     except MenuSuggestion.DoesNotExist:
         return JsonResponse({'error': 'MenuSuggestion not found'}, status=404)
+
+
+@csrf_exempt
+def update_menu_suggestion(request, menu_suggestion_id):
+    menu_suggestion = get_object_or_404(MenuSuggestion, pk=menu_suggestion_id)
+    if request.method == 'PUT':
+        try:
+            data = json.loads(request.body)
+            if 'menu' in data:
+                new_menu = get_object_or_404(Menu, pk=data['menu'])
+                menu_suggestion.menu = new_menu
+            menu_suggestion.save()
+
+            return JsonResponse({'message': 'Menu Suggestion updated successfully'})
+        except json.JSONDecodeError as e:
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+    else:
+        # PUT以外のリクエストに対するエラー応答
+        return JsonResponse({'error': 'Only PUT requests are allowed'}, status=400)
