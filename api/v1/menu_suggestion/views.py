@@ -14,6 +14,30 @@ class MenuSuggestionViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSuggestionSerializer
 
 
+def get_menu(request, menu_suggestion_id):
+    try:
+        menu_suggestion = MenuSuggestion.objects.get(pk=menu_suggestion_id)
+        recipes = menu_suggestion.menu.recipes.all()
+        recipe_list = []
+        for recipe in recipes:
+            recipe_ingredients = recipe.recipe_ingredient.all()
+            recipe_data = {
+                'recipe_name': recipe.title,
+                'recipe_img': recipe.img_url,
+                'ingredients': [
+                    {
+                        'ingredient_name': ingredient.ingredient.name,
+                        'grams': ingredient.grams,
+                    }
+                    for ingredient in recipe_ingredients
+                ],
+            }
+            recipe_list.append(recipe_data)
+        return JsonResponse({'recipes': recipe_list})
+    except MenuSuggestion.DoesNotExist:
+        return JsonResponse({'error': 'MenuSuggestion not found'}, status=404)
+
+
 def get_ingredient(request, menu_suggestion_id):
     try:
         menu_suggestion = MenuSuggestion.objects.get(pk=menu_suggestion_id)
