@@ -45,16 +45,19 @@ INSTALLED_APPS = [
     'user_info',
     'menu_suggestion',
     'menu',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -140,3 +143,25 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': 'JWT',
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=525600),
 }
+
+# 全てのオリジンからのリクエストを許可
+CORS_ALLOW_ALL_ORIGINS = True
+
+
+# 許可するHTTPヘッダーを指定
+CORS_ALLOW_HEADERS = [
+    'Authorization',  # 認証関連のヘッダー
+    'Content-Type',   # コンテンツタイプのヘッダー
+]
+
+# 許可するHTTPメソッドを指定
+CORS_ALLOW_METHODS = [
+    'GET',    # GETリクエストを許可
+    'POST',   # POSTリクエストを許可
+    'PUT',    # PUTリクエストを許可
+    'DELETE',  # DELETEリクエストを許可
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Reactのオリジン
+]
